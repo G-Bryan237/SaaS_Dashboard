@@ -5,7 +5,7 @@ A comprehensive, enterprise-grade dashboard solution built with Next.js 13+, fea
 ## Screenshots
 
 ### Dashboard Overview
-![Dashboard Overview](./screenshots/dash1.png)
+![Dashboard Overview](./screenshots/Dash1.png)
 *Comprehensive analytics dashboard with revenue metrics, user growth, and interactive data visualizations using Recharts.*
 
 ### Analytics
