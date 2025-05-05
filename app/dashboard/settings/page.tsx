@@ -15,13 +15,51 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Badge } from "@/components/ui/badge";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { Check, X, Upload, User, Bell, Shield, CreditCard, UserCog, Building2, Key, AlertCircle } from "lucide-react";
+import { Check, X, Upload, User, Bell, Shield, CreditCard, UserCog, Building2, Key, AlertCircle, Moon, Sun, Globe, BellRing, RefreshCw } from "lucide-react";
+import { useToast } from "@/components/ui/use-toast";
 
 export default function SettingsPage() {
   const [notificationEmail, setNotificationEmail] = useState(true);
   const [notificationPush, setNotificationPush] = useState(true);
   const [notificationSms, setNotificationSms] = useState(false);
-  const [themeSetting, setThemeSetting] = useState("system");
+  const { toast } = useToast();
+  
+  const [preferences, setPreferences] = useState({
+    theme: "system",
+    language: "en",
+    notifications: true,
+    compactMode: false,
+    autoUpdate: true,
+    timeFormat: "24h"
+  });
+  
+  const handleSwitchChange = (name: string) => {
+    setPreferences(prev => ({
+      ...prev,
+      [name]: !prev[name as keyof typeof prev]
+    }));
+  };
+  
+  const handleSelectChange = (name: string, value: string) => {
+    setPreferences(prev => ({
+      ...prev,
+      [name]: value
+    }));
+  };
+  
+  const handleRadioChange = (name: string, value: string) => {
+    setPreferences(prev => ({
+      ...prev,
+      [name]: value
+    }));
+  };
+  
+  const savePreferences = () => {
+    toast({
+      title: "Preferences Saved",
+      description: "Your preferences have been updated successfully."
+    });
+  };
 
   return (
     <div className="space-y-6">
@@ -30,10 +68,10 @@ export default function SettingsPage() {
         <p className="text-muted-foreground">Manage your account settings and preferences</p>
       </div>
 
-      <Tabs defaultValue="profile" className="space-y-6">
+      <Tabs defaultValue="preferences" className="space-y-6">
         <TabsList className="gap-x-2">
-          <TabsTrigger value="profile" className="gap-2">
-            <User className="h-4 w-4" /> Profile
+          <TabsTrigger value="preferences" className="gap-2">
+            <User className="h-4 w-4" /> Preferences
           </TabsTrigger>
           <TabsTrigger value="notifications" className="gap-2">
             <Bell className="h-4 w-4" /> Notifications
@@ -52,123 +90,148 @@ export default function SettingsPage() {
           </TabsTrigger>
         </TabsList>
 
-        <TabsContent value="profile" className="space-y-6">
-          <Card>
-            <CardHeader>
-              <CardTitle>Profile Information</CardTitle>
-              <CardDescription>Update your personal information</CardDescription>
-            </CardHeader>
-            <CardContent className="space-y-6">
-              <div className="flex flex-col md:flex-row gap-6">
-                <div className="flex flex-col items-center gap-4">
-                  <Avatar className="h-24 w-24">
-                    <AvatarImage src="https://api.dicebear.com/7.x/avataaars/svg?seed=John" />
-                    <AvatarFallback>JD</AvatarFallback>
-                  </Avatar>
-                  <Button variant="outline" size="sm">
-                    <Upload className="mr-2 h-4 w-4" /> Upload
-                  </Button>
-                </div>
-
-                <div className="flex-1 grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div className="space-y-2">
-                    <Label htmlFor="first-name">First name</Label>
-                    <Input id="first-name" defaultValue="John" />
-                  </div>
-                  <div className="space-y-2">
-                    <Label htmlFor="last-name">Last name</Label>
-                    <Input id="last-name" defaultValue="Doe" />
-                  </div>
-                  <div className="space-y-2">
-                    <Label htmlFor="email">Email</Label>
-                    <Input id="email" type="email" defaultValue="john.doe@example.com" />
-                  </div>
-                  <div className="space-y-2">
-                    <Label htmlFor="phone">Phone number</Label>
-                    <Input id="phone" type="tel" defaultValue="+1 (555) 123-4567" />
-                  </div>
-                  <div className="space-y-2 md:col-span-2">
-                    <Label htmlFor="bio">Bio</Label>
-                    <Textarea
-                      id="bio"
-                      placeholder="Tell us about yourself"
-                      className="resize-none"
-                      defaultValue="Product Manager with 5+ years of experience in SaaS industry."
-                    />
-                  </div>
-                </div>
-              </div>
-            </CardContent>
-            <CardFooter className="flex justify-between">
-              <Button variant="outline">Cancel</Button>
-              <Button>Save Changes</Button>
-            </CardFooter>
-          </Card>
-
-          <Card>
-            <CardHeader>
-              <CardTitle>Preferences</CardTitle>
-              <CardDescription>Manage your app preferences</CardDescription>
-            </CardHeader>
-            <CardContent className="space-y-6">
-              <div className="space-y-4">
-                <div className="space-y-2">
+        <TabsContent value="preferences" className="space-y-6">
+          <div className="grid gap-6 md:grid-cols-2">
+            <Card>
+              <CardHeader>
+                <CardTitle>Appearance</CardTitle>
+                <CardDescription>Customize how the application looks</CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-6">
+                <div className="space-y-4">
                   <Label>Theme</Label>
-                  <RadioGroup defaultValue={themeSetting} className="flex gap-4" onValueChange={setThemeSetting}>
+                  <RadioGroup 
+                    value={preferences.theme} 
+                    onValueChange={(value) => handleRadioChange("theme", value)}
+                    className="flex gap-4"
+                  >
                     <div className="flex items-center space-x-2">
-                      <RadioGroupItem value="light" id="light" />
-                      <Label htmlFor="light">Light</Label>
+                      <RadioGroupItem value="light" id="theme-light" />
+                      <Label htmlFor="theme-light" className="flex items-center gap-1.5">
+                        <Sun className="h-4 w-4" />
+                        Light
+                      </Label>
                     </div>
                     <div className="flex items-center space-x-2">
-                      <RadioGroupItem value="dark" id="dark" />
-                      <Label htmlFor="dark">Dark</Label>
+                      <RadioGroupItem value="dark" id="theme-dark" />
+                      <Label htmlFor="theme-dark" className="flex items-center gap-1.5">
+                        <Moon className="h-4 w-4" />
+                        Dark
+                      </Label>
                     </div>
                     <div className="flex items-center space-x-2">
-                      <RadioGroupItem value="system" id="system" />
-                      <Label htmlFor="system">System</Label>
+                      <RadioGroupItem value="system" id="theme-system" />
+                      <Label htmlFor="theme-system">System</Label>
                     </div>
                   </RadioGroup>
                 </div>
-
+                
+                <div className="flex items-center justify-between">
+                  <div className="space-y-0.5">
+                    <Label>Compact Mode</Label>
+                    <p className="text-sm text-muted-foreground">
+                      Reduce spacing and font size
+                    </p>
+                  </div>
+                  <Switch 
+                    checked={preferences.compactMode}
+                    onCheckedChange={() => handleSwitchChange("compactMode")}
+                  />
+                </div>
+              </CardContent>
+            </Card>
+            
+            <Card>
+              <CardHeader>
+                <CardTitle>Regional</CardTitle>
+                <CardDescription>Language and format preferences</CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-6">
                 <div className="space-y-2">
-                  <Label>Language</Label>
-                  <Select defaultValue="en">
-                    <SelectTrigger className="w-[180px]">
+                  <Label htmlFor="language">Language</Label>
+                  <Select 
+                    value={preferences.language}
+                    onValueChange={(value) => handleSelectChange("language", value)}
+                  >
+                    <SelectTrigger className="w-full" id="language">
                       <SelectValue placeholder="Select language" />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="en">English</SelectItem>
-                      <SelectItem value="fr">French</SelectItem>
-                      <SelectItem value="de">German</SelectItem>
-                      <SelectItem value="es">Spanish</SelectItem>
-                      <SelectItem value="pt">Portuguese</SelectItem>
+                      <SelectItem value="en">
+                        <div className="flex items-center">
+                          <Globe className="mr-2 h-4 w-4" />
+                          <span>English</span>
+                        </div>
+                      </SelectItem>
+                      <SelectItem value="es">
+                        <div className="flex items-center">
+                          <Globe className="mr-2 h-4 w-4" />
+                          <span>Español</span>
+                        </div>
+                      </SelectItem>
+                      <SelectItem value="fr">
+                        <div className="flex items-center">
+                          <Globe className="mr-2 h-4 w-4" />
+                          <span>Français</span>
+                        </div>
+                      </SelectItem>
+                      <SelectItem value="de">
+                        <div className="flex items-center">
+                          <Globe className="mr-2 h-4 w-4" />
+                          <span>Deutsch</span>
+                        </div>
+                      </SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
-
-                <div className="space-y-2">
-                  <Label>Timezone</Label>
-                  <Select defaultValue="utc-8">
-                    <SelectTrigger className="w-[280px]">
-                      <SelectValue placeholder="Select timezone" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="utc-12">(UTC-12:00) International Date Line West</SelectItem>
-                      <SelectItem value="utc-8">(UTC-08:00) Pacific Time (US & Canada)</SelectItem>
-                      <SelectItem value="utc-5">(UTC-05:00) Eastern Time (US & Canada)</SelectItem>
-                      <SelectItem value="utc">(UTC) Coordinated Universal Time</SelectItem>
-                      <SelectItem value="utc+1">(UTC+01:00) Central European Time</SelectItem>
-                      <SelectItem value="utc+8">(UTC+08:00) Beijing, Hong Kong, Singapore</SelectItem>
-                    </SelectContent>
-                  </Select>
+                
+                <div className="space-y-4">
+                  <Label>Time Format</Label>
+                  <RadioGroup 
+                    value={preferences.timeFormat} 
+                    onValueChange={(value) => handleRadioChange("timeFormat", value)}
+                    className="flex gap-6"
+                  >
+                    <div className="flex items-center space-x-2">
+                      <RadioGroupItem value="12h" id="time-12h" />
+                      <Label htmlFor="time-12h">12-hour (AM/PM)</Label>
+                    </div>
+                    <div className="flex items-center space-x-2">
+                      <RadioGroupItem value="24h" id="time-24h" />
+                      <Label htmlFor="time-24h">24-hour</Label>
+                    </div>
+                  </RadioGroup>
                 </div>
-              </div>
-            </CardContent>
-            <CardFooter className="flex justify-between">
-              <Button variant="outline">Reset to Default</Button>
-              <Button>Save Preferences</Button>
-            </CardFooter>
-          </Card>
+              </CardContent>
+            </Card>
+            
+            <Card>
+              <CardHeader>
+                <CardTitle>System</CardTitle>
+                <CardDescription>General system preferences</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="flex items-center justify-between">
+                  <div className="space-y-0.5">
+                    <div className="flex items-center gap-2">
+                      <RefreshCw className="h-4 w-4" />
+                      <Label>Auto Update Dashboard</Label>
+                    </div>
+                    <p className="text-sm text-muted-foreground">
+                      Automatically refresh dashboard data
+                    </p>
+                  </div>
+                  <Switch 
+                    checked={preferences.autoUpdate}
+                    onCheckedChange={() => handleSwitchChange("autoUpdate")}
+                  />
+                </div>
+              </CardContent>
+              <CardFooter>
+                <Button onClick={savePreferences}>Save Preferences</Button>
+              </CardFooter>
+            </Card>
+          </div>
         </TabsContent>
 
         <TabsContent value="notifications" className="space-y-6">

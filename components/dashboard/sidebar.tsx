@@ -167,9 +167,9 @@ export function Sidebar({ isMobile, isSidebarOpen, toggleSidebar }: SidebarProps
 
         <div className="border-t p-4 space-y-2">
           {/* Preferences link */}
-          <Link href="/dashboard/settings/preferences" className="flex items-center rounded-md px-3 py-2 text-sm font-medium hover:bg-muted hover:text-primary text-muted-foreground">
+          <Link href="/dashboard/settings/profile" className="flex items-center rounded-md px-3 py-2 text-sm font-medium hover:bg-muted hover:text-primary text-muted-foreground">
             <User className="mr-2 h-5 w-5" />
-            <span>Preferences</span>
+            <span>Profile</span>
           </Link>
           
           {/* Logout button */}
