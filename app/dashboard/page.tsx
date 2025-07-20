@@ -19,6 +19,23 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { useNotificationStore } from "@/lib/stores/notification-store";
 import { CreditCard, Users, TrendingUp, PieChart as PieChartIcon, ArrowUp } from "lucide-react";
 
+// Define CSS variables for chart colors
+const chartStyles = `
+  :root {
+    --color-chart-1: #0ea5e9;
+    --color-chart-2: #f97316; 
+    --color-chart-3: #8b5cf6;
+    --color-chart-4: #10b981;
+  }
+
+  .dark {
+    --color-chart-1: #38bdf8;
+    --color-chart-2: #fb923c;
+    --color-chart-3: #a78bfa;
+    --color-chart-4: #34d399;
+  }
+`;
+
 // Sample data for charts
 const performanceData = [
   { name: "Jan", value: 12 },
@@ -61,6 +78,8 @@ export default function DashboardPage() {
 
   return (
     <div className="space-y-6">
+      <style dangerouslySetInnerHTML={{ __html: chartStyles }} />
+      
       <div>
         <h1 className="text-3xl font-bold">Dashboard</h1>
         <p className="text-muted-foreground">Welcome to your SaaS dashboard</p>
