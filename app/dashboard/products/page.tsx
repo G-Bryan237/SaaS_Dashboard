@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { Search, Edit, Trash2, Plus, Filter, ArrowUpDown } from "lucide-react";
+import { Search, Edit, Trash2, Plus, ListFilter, ArrowUpDown } from "lucide-react";
 import { 
   DropdownMenu,
   DropdownMenuContent,
@@ -56,7 +56,7 @@ export default function ProductsPage() {
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button variant="outline">
-                  <Filter className="mr-2 h-4 w-4" /> Filter
+                  <ListFilter className="mr-2 h-4 w-4" /> Filter
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end">

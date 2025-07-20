@@ -17,8 +17,7 @@ import {
 } from "recharts";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { useNotificationStore } from "@/lib/stores/notification-store";
-import { ArrowUpIcon } from "@radix-ui/react-icons";
-import { CreditCard, Users, TrendingUp, PieChart as PieChartIcon } from "lucide-react";
+import { CreditCard, Users, TrendingUp, PieChart as PieChartIcon, ArrowUp } from "lucide-react";
 
 // Sample data for charts
 const performanceData = [
@@ -75,7 +74,7 @@ export default function DashboardPage() {
               <CardDescription>Total Revenue</CardDescription>
               <CardTitle className="text-3xl font-bold">$24,345</CardTitle>
               <p className="text-xs flex items-center text-green-600 dark:text-green-400">
-                <ArrowUpIcon className="mr-1 h-3 w-3" /> +12.5% from last month
+                <ArrowUp className="mr-1 h-3 w-3" /> +12.5% from last month
               </p>
             </div>
             <div className="h-12 w-12 rounded-full bg-primary/10 flex items-center justify-center text-primary">
@@ -89,7 +88,7 @@ export default function DashboardPage() {
               <CardDescription>Active Users</CardDescription>
               <CardTitle className="text-3xl font-bold">1,294</CardTitle>
               <p className="text-xs flex items-center text-green-600 dark:text-green-400">
-                <ArrowUpIcon className="mr-1 h-3 w-3" /> +2.4% from last week
+                <ArrowUp className="mr-1 h-3 w-3" /> +2.4% from last week
               </p>
             </div>
             <div className="h-12 w-12 rounded-full bg-primary/10 flex items-center justify-center text-primary">
@@ -103,7 +102,7 @@ export default function DashboardPage() {
               <CardDescription>Conversion Rate</CardDescription>
               <CardTitle className="text-3xl font-bold">28.6%</CardTitle>
               <p className="text-xs flex items-center text-green-600 dark:text-green-400">
-                <ArrowUpIcon className="mr-1 h-3 w-3" /> +4.3% from last week
+                <ArrowUp className="mr-1 h-3 w-3" /> +4.3% from last week
               </p>
             </div>
             <div className="h-12 w-12 rounded-full bg-primary/10 flex items-center justify-center text-primary">
@@ -117,7 +116,7 @@ export default function DashboardPage() {
               <CardDescription>Avg. Session</CardDescription>
               <CardTitle className="text-3xl font-bold">4m 12s</CardTitle>
               <p className="text-xs flex items-center text-green-600 dark:text-green-400">
-                <ArrowUpIcon className="mr-1 h-3 w-3" /> +0.8% from last week
+                <ArrowUp className="mr-1 h-3 w-3" /> +0.8% from last week
               </p>
             </div>
             <div className="h-12 w-12 rounded-full bg-primary/10 flex items-center justify-center text-primary">
