@@ -10,7 +10,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Badge } from "@/components/ui/badge";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
-import { Calendar } from "@/components/ui/calendar";
+// import { Calendar } from "@/components/ui/calendar";
 import { Download, FileSpreadsheet, FilePieChart, Clock, CalendarIcon, Plus, ListFilter } from "lucide-react";
 import { format } from "date-fns";
 import { cn } from "@/lib/utils";
@@ -46,12 +46,14 @@ export default function ReportsPage() {
               </Button>
             </PopoverTrigger>
             <PopoverContent className="w-auto p-0" align="end">
-              <Calendar
-                mode="single"
-                selected={date}
-                onSelect={setDate}
-                initialFocus
-              />
+              {/* Temporary replacement for Calendar component */}
+              <div className="p-4">
+                <input
+                  type="date"
+                  className="w-full p-2 border rounded"
+                  onChange={(e) => setDate(e.target.value ? new Date(e.target.value) : undefined)}
+                />
+              </div>
             </PopoverContent>
           </Popover>
           <Button>Generate Report</Button>
