@@ -20,7 +20,7 @@ export function DashboardLayout({ children }: { children: React.ReactNode }) {
   };
 
   return (
-    <div className="flex h-screen overflow-hidden">
+    <div className="flex h-screen overflow-hidden bg-background text-foreground">
       <div className="flex-shrink-0">
         <Sidebar 
           isMobile={!isDesktop}
@@ -30,7 +30,7 @@ export function DashboardLayout({ children }: { children: React.ReactNode }) {
       </div>
       <div className="flex-1 flex flex-col h-full overflow-hidden">
         <Header toggleSidebar={toggleSidebar} />
-        <main className="flex-1 overflow-auto p-4">{children}</main>
+        <main className="flex-1 overflow-auto bg-background p-4">{children}</main>
       </div>
     </div>
   );

@@ -130,9 +130,9 @@ export function Header({ toggleSidebar }: { toggleSidebar: () => void }) {
           )}
         </div>
 
-        <Link href="/dashboard/profile">
+        <Link href="/dashboard/settings/profile">
           <Avatar>
-            <AvatarImage src="https://api.dicebear.com/7.x/avataaars/svg?seed=John" alt="User" />
+            <AvatarImage src="/avatars/avatar-1.svg" alt="User" />
             <AvatarFallback>JS</AvatarFallback>
           </Avatar>
         </Link>

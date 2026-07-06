@@ -23,6 +23,7 @@ import {
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import { 
   Select, 
   SelectContent, 
@@ -40,15 +41,16 @@ import {
   DialogTrigger 
 } from "@/components/ui/dialog";
 import { useToast } from "@/components/ui/use-toast";
+import { getLocalAvatar } from "@/lib/avatar";
 import { 
   Search, 
   UserPlus, 
   Edit2, 
   Trash2, 
-  MoreHorizontal,
   CheckCircle,
   AlertCircle,
-  Clock
+  Clock,
+  Sparkles
 } from "lucide-react";
 import { format } from "date-fns";
 
@@ -104,7 +106,7 @@ export default function UsersPage() {
     try {
       await addUser({
         ...newUser,
-        avatar: `https://api.dicebear.com/7.x/avataaars/svg?seed=${newUser.name}`,
+        avatar: getLocalAvatar(newUser.name),
       });
 
       toast({
@@ -208,20 +210,26 @@ export default function UsersPage() {
         
         <Dialog open={isAddModalOpen} onOpenChange={setIsAddModalOpen}>
           <DialogTrigger asChild>
-            <Button className="gap-2">
+            <Button className="gap-2 rounded-lg">
               <UserPlus className="h-4 w-4" /> Add User
             </Button>
           </DialogTrigger>
-          <DialogContent className="sm:max-w-[425px]">
+          <DialogContent className="sm:max-w-[520px]">
             <DialogHeader>
-              <DialogTitle>Add New User</DialogTitle>
+              <DialogTitle className="flex items-center gap-2 text-xl">
+                <Sparkles className="h-5 w-5 text-sky-500" />
+                Add New User
+              </DialogTitle>
               <DialogDescription>
-                Create a new user account for your platform.
+                Create a new user account with role and status assignment.
               </DialogDescription>
             </DialogHeader>
             <div className="grid gap-4 py-4">
+              <div className="rounded-xl border border-border/60 bg-muted/30 p-3 text-sm text-muted-foreground">
+                New users are added instantly and appear in the table below.
+              </div>
               <div className="grid gap-2">
-                <label htmlFor="name">Name</label>
+                <Label htmlFor="name">Name</Label>
                 <Input 
                   id="name" 
                   value={newUser.name}
@@ -230,7 +238,7 @@ export default function UsersPage() {
                 />
               </div>
               <div className="grid gap-2">
-                <label htmlFor="email">Email</label>
+                <Label htmlFor="email">Email</Label>
                 <Input 
                   id="email" 
                   type="email"
@@ -239,37 +247,39 @@ export default function UsersPage() {
                   placeholder="Enter email address" 
                 />
               </div>
-              <div className="grid gap-2">
-                <label htmlFor="role">Role</label>
-                <Select 
-                  value={newUser.role}
-                  onValueChange={(value: "admin" | "user" | "manager") => setNewUser({...newUser, role: value})}
-                >
-                  <SelectTrigger>
-                    <SelectValue placeholder="Select role" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="user">User</SelectItem>
-                    <SelectItem value="admin">Admin</SelectItem>
-                    <SelectItem value="manager">Manager</SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
-              <div className="grid gap-2">
-                <label htmlFor="status">Status</label>
-                <Select 
-                  value={newUser.status}
-                  onValueChange={(value: "active" | "inactive" | "pending") => setNewUser({...newUser, status: value})}
-                >
-                  <SelectTrigger>
-                    <SelectValue placeholder="Select status" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="active">Active</SelectItem>
-                    <SelectItem value="inactive">Inactive</SelectItem>
-                    <SelectItem value="pending">Pending</SelectItem>
-                  </SelectContent>
-                </Select>
+              <div className="grid gap-4 sm:grid-cols-2">
+                <div className="grid gap-2">
+                  <Label htmlFor="role">Role</Label>
+                  <Select 
+                    value={newUser.role}
+                    onValueChange={(value: "admin" | "user" | "manager") => setNewUser({...newUser, role: value})}
+                  >
+                    <SelectTrigger>
+                      <SelectValue placeholder="Select role" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="user">User</SelectItem>
+                      <SelectItem value="admin">Admin</SelectItem>
+                      <SelectItem value="manager">Manager</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+                <div className="grid gap-2">
+                  <Label htmlFor="status">Status</Label>
+                  <Select 
+                    value={newUser.status}
+                    onValueChange={(value: "active" | "inactive" | "pending") => setNewUser({...newUser, status: value})}
+                  >
+                    <SelectTrigger>
+                      <SelectValue placeholder="Select status" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="active">Active</SelectItem>
+                      <SelectItem value="inactive">Inactive</SelectItem>
+                      <SelectItem value="pending">Pending</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
               </div>
             </div>
             <DialogFooter>
@@ -280,7 +290,7 @@ export default function UsersPage() {
         </Dialog>
       </div>
 
-      <Card>
+      <Card className="rounded-2xl border-border/60">
         <CardHeader className="pb-2">
           <div className="flex items-center justify-between">
             <CardTitle>Users</CardTitle>

@@ -93,7 +93,7 @@ export function Sidebar({ isMobile, isSidebarOpen, toggleSidebar }: SidebarProps
   return (
     <aside
       className={cn(
-        "fixed top-14 left-0 z-20 h-[calc(100vh-3.5rem)] w-64 border-r bg-background transition-transform lg:static lg:h-full",
+        "fixed top-16 left-0 z-20 h-[calc(100vh-4rem)] w-64 border-r bg-background transition-transform lg:static lg:h-full",
         isSidebarOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0"
       )}
     >
@@ -110,8 +110,8 @@ export function Sidebar({ isMobile, isSidebarOpen, toggleSidebar }: SidebarProps
                     <Button
                       variant={isActive ? "secondary" : "ghost"}
                       className={cn(
-                        "w-full justify-between",
-                        isActive && "text-primary"
+                        "w-full justify-between text-muted-foreground dark:text-white",
+                        isActive && "text-primary dark:text-white"
                       )}
                       onClick={() => toggleSubmenu(item.path)}
                     >

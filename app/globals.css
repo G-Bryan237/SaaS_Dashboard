@@ -64,4 +64,11 @@
   --chart-5: 340 75% 55%;
 }
 
+@layer base {
+  html,
+  body {
+    @apply min-h-screen bg-background text-foreground;
+  }
+}
+
 /* Your other custom CSS */

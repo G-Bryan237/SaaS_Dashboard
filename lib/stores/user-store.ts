@@ -1,4 +1,5 @@
 import { create } from 'zustand';
+import { getLocalAvatar } from '@/lib/avatar';
 
 export type User = {
   id: string;
@@ -33,7 +34,7 @@ const mockUsers: User[] = [
     email: 'john@example.com',
     role: 'admin',
     status: 'active',
-    avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=John',
+    avatar: getLocalAvatar('John Smith'),
     createdAt: new Date('2023-01-15'),
     lastLogin: new Date('2023-08-10'),
   },
@@ -43,7 +44,7 @@ const mockUsers: User[] = [
     email: 'sarah@example.com',
     role: 'manager',
     status: 'active',
-    avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Sarah',
+    avatar: getLocalAvatar('Sarah Johnson'),
     createdAt: new Date('2023-03-22'),
     lastLogin: new Date('2023-08-05'),
   },
@@ -53,7 +54,7 @@ const mockUsers: User[] = [
     email: 'michael@example.com',
     role: 'user',
     status: 'inactive',
-    avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Michael',
+    avatar: getLocalAvatar('Michael Brown'),
     createdAt: new Date('2023-05-12'),
     lastLogin: new Date('2023-07-20'),
   },
@@ -63,7 +64,7 @@ const mockUsers: User[] = [
     email: 'emily@example.com',
     role: 'user',
     status: 'pending',
-    avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Emily',
+    avatar: getLocalAvatar('Emily Davis'),
     createdAt: new Date('2023-07-08'),
   },
   {
@@ -72,7 +73,7 @@ const mockUsers: User[] = [
     email: 'david@example.com',
     role: 'manager',
     status: 'active',
-    avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=David',
+    avatar: getLocalAvatar('David Wilson'),
     createdAt: new Date('2023-02-18'),
     lastLogin: new Date('2023-08-01'),
   },

@@ -1,21 +1,10 @@
-"use client"; // Convert to Client Component to allow event handlers
-
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { useState } from "react";
 import WelcomeAnimation from "@/components/3d/WelcomeAnimation";
 
 export default function Home() {
-  const [imgSrc, setImgSrc] = useState("/dashboard-preview.png");
-  const [imgClass, setImgClass] = useState("rounded-lg border shadow-md");
-  
-  const handleImageError = () => {
-    setImgSrc("/next.svg");
-    setImgClass("dark:invert w-[180px] h-[38px] object-contain");
-  };
-
   return (
     <div className="relative min-h-screen">
       {/* 3D Animation Background */}
@@ -36,13 +25,12 @@ export default function Home() {
 
             <div className="flex justify-center">
               <Image 
-                src={imgSrc}
+                src="/dashboard-preview.png"
                 alt="Dashboard Preview" 
                 width={600} 
                 height={400}
-                className={imgClass}
+                className="rounded-lg border shadow-md"
                 priority
-                onError={handleImageError}
               />
             </div>
 
@@ -62,7 +50,7 @@ export default function Home() {
 
           <footer className="mt-auto py-6">
             <p className="text-sm text-muted-foreground">
-              © {new Date().getFullYear()} SaaS Dashboard. All rights reserved.
+              © SaaS Dashboard. All rights reserved.
             </p>
           </footer>
         </div>
